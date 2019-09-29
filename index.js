@@ -15,8 +15,10 @@ const PERSONS = require('./models/persons');
 // mongoose.connect('mongodb://localhost:marvel')
 
 // connect with mlab
-mongoose.connect('mongodb://csp-marvel:672@j179@ds147684.mlab.com:47684/marvel', 
+// mongodb://csp-marvel:672%40j179@ds147684.mlab.com:47684/marvel
+mongoose.connect('mongodb://csp-marvel:672%40j179@ds147684.mlab.com:47684/marvel', 
   { 
+    useUnifiedTopology: true,
     useNewUrlParser: true,
   })
   .then(() => {
