@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "nodemon",
     "test": "npm test"
   },
   "repository": {
@@ -23,5 +24,8 @@
     "mongoose": "^5.7.1",
     "mongoose-connection-config": "^0.2.5",
     "request": "^2.88.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.3"
   }
 }
