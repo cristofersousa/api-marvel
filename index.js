@@ -43,12 +43,11 @@ router.get('/', (request, response) => {
   List all members this marvel -> GET
 */
 router.route('/persons')
-  .post((req, res) => {    
-    const person = new Person();
-    person.name = req.body.name;
-    person.age = req.body.age;
-    person.power = req.body.power;
-    person.description = req.body.description;
+  .post((req, res) => {      
+    const person = new Person({
+      ... req.body
+    });
+    console.log('new person', person);
 
     person.save((error) => {
       if(error) {
@@ -69,8 +68,9 @@ router.route('/persons')
   });
 
 /*
-  Find an member this marvel -> get/:id
-  Update an member this marvel -> put/:id
+  Find an member this marvel team -> get/:id
+  Update an member this marvel team -> put/:id
+  Delete an member this marvel team -> delete/:id
 */
 
   router.route('/persons/:id')
