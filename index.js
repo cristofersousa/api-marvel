@@ -11,21 +11,30 @@ const mongoose = require('mongoose');
 // data 
 const Person = require('./models/persons'); 
 
-// connect mongoDB
-// mongoose.connect('mongodb://localhost:marvel')
-
-// connect with mlab
-mongoose.connect('mongodb://csp-marvel:672%40j179@ds147684.mlab.com:47684/marvel', 
-  { 
+// connect mongoDB local
+mongoose.connect('mongodb://localhost:27017/marvel', { 
     useUnifiedTopology: true,
-    useNewUrlParser: true,
+    useNewUrlParser: true
   })
   .then(() => {
-    console.log('CONNECTED');
+    console.log('MongoLocal is on');
   })
   .catch((err) => {
-    console.log('MONGODB', err);
+    console.log('MongoLocal is off', err);
   });
+
+// connect with mlab
+// mongoose.connect('mongodb://csp-marvel:672%40j179@ds147684.mlab.com:47684/marvel', 
+//   { 
+//     useUnifiedTopology: true,
+//     useNewUrlParser: true,
+//   })
+//   .then(() => {
+//     console.log('CONNECTED');
+//   })
+//   .catch((err) => {
+//     console.log('MONGODB', err);
+//   });
  
 const router = express.Router();
 
