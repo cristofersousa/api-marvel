@@ -1,40 +1,27 @@
+const dotenv = require('dotenv');
+dotenv.config();
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const port = process.env.port || 3000;
+const mongoose = require('mongoose');
+const Person = require('./models/persons'); 
+const DB_CON = process.env.DATABASE_MLAB; 
 
 app.use(bodyParser.urlencoded({ extended:true }));
 app.use(bodyParser.json());
 
-const port = process.env.port || 3000;
-const mongoose = require('mongoose');
-
-// data 
-const Person = require('./models/persons'); 
-
-// connect mongoDB local
-mongoose.connect('mongodb://localhost:27017/marvel', { 
+// connect mongoDB
+mongoose.connect( DB_CON, { 
     useUnifiedTopology: true,
     useNewUrlParser: true
   })
   .then(() => {
-    console.log('MongoLocal is on');
+    console.log('mongo on');
   })
   .catch((err) => {
-    console.log('MongoLocal is off', err);
+    console.log('mongo is off', err);
   });
-
-// connect with mlab
-// mongoose.connect('mongodb://csp-marvel:672%40j179@ds147684.mlab.com:47684/marvel', 
-//   { 
-//     useUnifiedTopology: true,
-//     useNewUrlParser: true,
-//   })
-//   .then(() => {
-//     console.log('CONNECTED');
-//   })
-//   .catch((err) => {
-//     console.log('MONGODB', err);
-//   });
  
 const router = express.Router();
 
