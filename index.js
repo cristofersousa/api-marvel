@@ -1,30 +1,26 @@
+const dotenv = require('dotenv');
+dotenv.config();
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const port = process.env.port || 3000;
+const mongoose = require('mongoose');
+const Person = require('./models/persons'); 
+const DB_CON = process.env.DATABASE_MLAB; 
 
 app.use(bodyParser.urlencoded({ extended:true }));
 app.use(bodyParser.json());
 
-const port = process.env.port || 3000;
-const mongoose = require('mongoose');
-
-// data 
-const Person = require('./models/persons'); 
-
 // connect mongoDB
-// mongoose.connect('mongodb://localhost:marvel')
-
-// connect with mlab
-mongoose.connect('mongodb://csp-marvel:672%40j179@ds147684.mlab.com:47684/marvel', 
-  { 
+mongoose.connect( DB_CON, { 
     useUnifiedTopology: true,
-    useNewUrlParser: true,
+    useNewUrlParser: true
   })
   .then(() => {
-    console.log('CONNECTED');
+    console.log('mongo on');
   })
   .catch((err) => {
-    console.log('MONGODB', err);
+    console.log('mongo is off', err);
   });
  
 const router = express.Router();
@@ -43,12 +39,11 @@ router.get('/', (request, response) => {
   List all members this marvel -> GET
 */
 router.route('/persons')
-  .post((req, res) => {    
-    const person = new Person();
-    person.name = req.body.name;
-    person.age = req.body.age;
-    person.power = req.body.power;
-    person.description = req.body.description;
+  .post((req, res) => {      
+    const person = new Person({
+      ... req.body
+    });
+    console.log('new person', person);
 
     person.save((error) => {
       if(error) {
@@ -69,8 +64,9 @@ router.route('/persons')
   });
 
 /*
-  Find an member this marvel -> get/:id
-  Update an member this marvel -> put/:id
+  Find an member this marvel team -> get/:id
+  Update an member this marvel team -> put/:id
+  Delete an member this marvel team -> delete/:id
 */
 
   router.route('/persons/:id')
