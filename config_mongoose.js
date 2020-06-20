@@ -5,7 +5,7 @@ const opts = {
   port: process.env.MONGO_PORT || 27017,
   database: 'my-db',
   user:'csp-marvel',
-  pass: '672@j179'
+  pass: 'xpto123'
 };
 const mcc = new MongooseConnectionConfig(opts);
  
